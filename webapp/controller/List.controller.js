@@ -12,7 +12,8 @@ sap.ui.define([
 		 * @memberOf com.mtk.jingUI5_table.view.List
 		 */
 		onInit: function () {
-
+			var jsonModel = new sap.ui.model.json.JSONModel({dateFrom:null,dateTo:null});
+			this.getView().setModel(jsonModel,"date");
 		},
 		
 		_getRouter: function(){
@@ -40,11 +41,18 @@ sap.ui.define([
 		},
 
 		onSearchTable: function () {
+			var dateFrom = this.byId("DP1").getDateValue();
+			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+        			pattern: "yyyy-MM-dd"
+					});
+			dateFrom = dateFormat.format(new Date(dateFrom), true);
+			var dateTo = this.byId("DP2").getDateValue();
+			dateTo = dateFormat.format(new Date(dateTo), true);
 			var ofilter = new sap.ui.model.Filter({
 				path: "CreationDateTime",
 				operator: sap.ui.model.FilterOperator.BT,
-				value1: this.byId("DP1").getDateValue(),
-				value2: this.byId("DP2").getDateValue()
+				value1: dateFrom,
+				value2: dateTo
 			});
 			var oTable = this.byId("soTable");
 			var oBinding = oTable.getBinding("items");

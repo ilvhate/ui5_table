@@ -30,10 +30,14 @@
 							<ToolbarSpacer />
 							<Label text="From Date" labelFor="DP1"/>
 							<DatePicker id="DP1" placeholder="Enter From Date ..." valueFormat="yyyyMMdd" 
-									displayFormat="yyyy/MM/dd" change="handleValidFromChange" width="15%"/>
+									displayFormat="yyyy/MM/dd" change="handleValidFromChange" width="15%"
+									value="{path:'date>/dateFrom',type:'sap.ui.model.type.Date',
+											formatOptions:{pattern:'yyyy/MM/dd', strictParsing:true, UTC:true}}"/>
 							<Label text="To Date" labelFor="DP2"/>
 							<DatePicker id="DP2" placeholder="Enter To Date ..." valueFormat="yyyyMMdd" 
-									displayFormat="yyyy/MM/dd" change="handleValidToChange" width="15%"/>
+									displayFormat="yyyy/MM/dd" change="handleValidToChange" width="15%" 
+									value="{path:'date>/dateTo',type:'sap.ui.model.type.Date',
+											formatOptions:{pattern:'yyyy/MM/dd', strictParsing:true, UTC:true}}"/>
 							<Button icon="sap-icon://search" press="onSearchTable"/>
 							<Button icon="sap-icon://excel-attachment" tooltip="Export Excel" press="onExcelExport"/>
 						</Toolbar>
