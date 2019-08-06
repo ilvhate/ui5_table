@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+	xmlns:fb="sap.ui.comp.filterbar"
+	controllerName="com.mtk.jingUI5_table.controller.List"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<fb:FilterBar reset="onReset" search="onSearch" showRestoreButton="true" showClearButton="true">
+					<fb:filterItems>
+				<fb:FilterItem name="A" label="From Date">
+					<fb:control>
+							<DatePicker id="DP11" placeholder="Enter From Date ..." valueFormat="yyyyMMdd" 
+									displayFormat="yyyy/MM/dd" change="handleValidFromChange1"/>
+					</fb:control>				
+				</fb:FilterItem>
+				<fb:FilterItem name="B" label="To Date">
+					<fb:control>
+							<DatePicker id="DP21" placeholder="Enter To Date ..." valueFormat="yyyyMMdd" 
+									displayFormat="yyyy/MM/dd" change="handleValidToChange1"/>
+					</fb:control>				
+				</fb:FilterItem>				
+				</fb:filterItems>
+
+				</fb:FilterBar>	
+				
+				<Table id="soTable" items="{/Z_JING_C_SOITEM}" growing="true" growingThreshold="15" growingScrollToLoad="false">
+					<headerToolbar>
+						<Toolbar>
+							<Title text="{i18n>LineItems}" level="H2"/>
+							<ToolbarSpacer />
+							<Label text="From Date" labelFor="DP1"/>
+							<DatePicker id="DP1" placeholder="Enter From Date ..." valueFormat="yyyyMMdd" 
+									displayFormat="yyyy/MM/dd" change="handleValidFromChange" width="15%"/>
+							<Label text="To Date" labelFor="DP2"/>
+							<DatePicker id="DP2" placeholder="Enter To Date ..." valueFormat="yyyyMMdd" 
+									displayFormat="yyyy/MM/dd" change="handleValidToChange" width="15%"/>
+							<Button icon="sap-icon://search" press="onSearchTable"/>
+							<Button icon="sap-icon://excel-attachment" tooltip="Export Excel" press="onExcelExport"/>
+						</Toolbar>
+					</headerToolbar>
+					
+					<columns>
+						<Column id="salesOrderCol"><Text text="{i18n>SalesOrder}"/></Column>
+						<Column id="soiCol"><Text text="{i18n>SalesOrderItem}"/></Column>
+						<Column id="companyNameCol" demandPopin="true"><Text text="{i18n>BusinessPartner}"/></Column>
+						<Column id="grossAmountCol" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>GrossAmount}"/></Column>
+						<Column id="currencyCol" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>CurrencyCode}"/></Column>
+						<Column id="cdtCol" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>CreationDateTime}"/></Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onItemPressed">
+							<cells>
+								<Text text="{SalesOrderID}"/>
+								<Text text="{ItemPosition}"/>
+								<Text text="{CompanyName}"/>
+								<Text text="{parts: [{path: 'GrossAmount'}, {path: 'CurrencyCode'}],
+										type:'sap.ui.model.type.Currency',
+										formatOptions:{showMeasure: false}}"/>
+								<Text text="{CurrencyCode}"/>
+								<Text text="{path:'CreationDateTime',
+											type : 'sap.ui.model.type.DateTime',
+											formatOptions: {
+												pattern: 'yyyy/MM/dd HH:mm:ss',
+												UTC: true}}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
